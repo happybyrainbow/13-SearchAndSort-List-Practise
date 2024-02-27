@@ -15,17 +15,17 @@ public class MainProgram {
 
     private static void setup(){
         MainController mainController = new MainController(10);
-        //Aufgabe der Liste
-        System.out.println(mainController.showList());
-
-        //Suche in der Liste
-        String name = mainController.getRandomName();
-        System.out.println("Suche nach " + name+ " ergab: "+mainController.searchList(name));
+//        //Aufgabe der Liste
+//        System.out.println(mainController.showList());
+//
+//        //Suche in der Liste
+//        String name = mainController.getRandomName();
+//        System.out.println("Suche nach " + name+ " ergab: "+mainController.searchList(name));
 
         //Sortieren der Liste
-        System.out.println(mainController.showList());  //Liste vorher
+        System.out.println(mainController.showList() + "Liste vorher");  //Liste vorher
         mainController.sortList();                      //Liste sortieren
-        System.out.println(mainController.showList());  //Liste nachher
+        System.out.println(mainController.showList() + "Liste nachher");  //Liste nachher
 
     }
 }

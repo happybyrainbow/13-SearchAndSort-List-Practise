@@ -3,6 +3,8 @@ package control;
 import model.List;
 import model.Person;
 
+import java.beans.PersistenceDelegate;
+
 public class MainController {
 
     private List<Person> allPersons;
@@ -44,10 +46,10 @@ public class MainController {
         //TODO 01: Schreibe einen Suchalgorithmus
         allPersons.toFirst();
         while(allPersons.hasAccess()){
-            allPersons.next();
             if(allPersons.getContent().getName().equals(name)){
                 output = allPersons.getContent().getName() + " " + allPersons.getContent().getBirthdate();
             }
+            allPersons.next();
         }
         return output;
     }
@@ -58,18 +60,35 @@ public class MainController {
      */
     public void sortList(){
         //TODO 02: Schreibe einen Sortieralgorithmus
-        List<Person> help = null;
+        List<Person> help = new List<>();
         allPersons.toFirst();
+        String lowestName = allPersons.getContent().getName();
         while(!allPersons.isEmpty()){
             while(allPersons.hasAccess()){
-                if(help.getContent().getName().compareTo(allPersons.getContent().getName()) == 0){
-                    help.append(allPersons.getContent());
-                    allPersons.remove();
+                if(lowestName.compareTo(allPersons.getContent().getName()) >  0){
+                    lowestName = allPersons.getContent().getName();
                 }
                 allPersons.next();
             }
-            allPersons.toFirst();
+            help.append(new Person(lowestName));
+            this.removeByName(allPersons, lowestName);
+            if(allPersons.hasAccess()) {
+                lowestName = allPersons.getContent().getName();
+            }
         }
+        allPersons = help;
+    }
+
+    private void removeByName(List<Person> list, String name){
+        list.toFirst();
+        while(list.hasAccess()){
+            if(list.getContent().getName().equals(name)){
+                list.remove();
+            }else{
+                list.next();
+            }
+        }
+        list.toFirst();
     }
 
     public static void selectionSort(int[] array){
